@@ -2,13 +2,14 @@
 // node /workspaces/JS-by-chai_aur_Code/02_basics/03_0bjects.js
 
 
-// 1.singleton: if you use constructor to create object it will always be singleton object(its own type one object)
+// 1.singleton: if you use constructor to create object it 
+//              will always be singleton object(its own type one object)
 
 Object.create // using constructor object created
 
-// 2. object leterals
+// 2. Non-singleton object / object leterals
 
-// const JsUser = {} // object created 
+const JsUser = {} // object created 
 
 // declaring symbol
 const mySym = Symbol("key1") 
