@@ -1,0 +1,16 @@
+function?
+== vs ===
+rest vs spread operator
+Passing parameters / predefined argument
+global, block scopes
+function declaration
+
+
+
+
+
+
+
+
+
+
