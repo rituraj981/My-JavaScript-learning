@@ -1,0 +1,63 @@
+*********** JavaScript Execution Context **********
+
+
+1. Global execution context: {}
+2. Function/functional execution context
+3. Eval execution context
+
+
+{}  -> Memory creation phase
+    -> Execution phase
+
+
+
+
+Example code:
+
+1. let val1 = 10
+2. let val2 = 5
+3. function addNum(num1, num2){
+4.     let total = num1 + num2
+5.     return total
+6. }
+7. let result1 = addNum(val1, val2)
+8. let result2 = addNum(10, 2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
