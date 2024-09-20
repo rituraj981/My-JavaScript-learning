@@ -1,58 +1,292 @@
-*********** JavaScript Execution Context **********
+JavaScript is a single-threaded, non-blocking, asynchronous, event-driven 
+programming language, which means it can handle multiple tasks at the same 
+time in an efficient way. 
 
 
-1. Global execution context: {}
-2. Function/functional execution context
-3. Eval execution context
+Let’s break down how it works step-by-step:
+
+1. Single-threaded
+    JavaScript is a single-threaded language, meaning it executes code one 
+    line at a time in a single sequence (one thread). It doesn’t do multiple 
+    things at once by default.
+
+    This is called the Call Stack. It stores the execution context of your 
+    running code. When a function is invoked, it gets pushed onto the call 
+    stack, and when the function completes, it’s popped off the stack.
 
 
-{}  -> Memory creation phase
-    -> Execution phase
+2. Synchronous Execution
+    By default, JavaScript runs code synchronously, which means it executes 
+    one task, completes it, and then moves on to the next task.
+
+    For example:
+
+    console.log("Start");  // Executes first
+    console.log("End");    // Executes second
+
+
+    Call Stack flow:
+
+    - console.log("Start") -> push onto call stack -> print -> pop off the stack
+    - console.log("End") -> push onto call stack -> print -> pop off the stack
+
+
+3. Asynchronous Execution
+    JavaScript can also perform asynchronous tasks. These tasks can take time 
+    (like fetching data from a server), and JavaScript can handle them without 
+    blocking the rest of the code.
+
+________________________________________________________________________________
+    
+How? JavaScript uses something called the Event Loop and Callback Queue.
+
+        Here’s a simple example:
+
+        console.log("Start");
+
+        setTimeout(() => {
+            console.log("Inside setTimeout");
+        }, 2000);
+
+        console.log("End");
+
+    Execution breakdown:
+
+    - console.log("Start") prints immediately.
+    - setTimeout schedules a function to be run after 2 seconds and moves on 
+        (it doesn't block).
+    - console.log("End") runs immediately.
+    - After 2 seconds, the callback (Inside setTimeout) is pushed to the Callback Queue.
+    - The Event Loop checks if the call stack is empty, and if it is, it moves the callback from the Callback Queue to the Call Stack, where it’s executed.
+
+        // So the output is:
+
+        Start
+        End
+        Inside setTimeout
+
+________________________________________________________________________________
+
+4. Execution Context
+    When JavaScript runs, it creates an Execution Context. 
+    
+    There are two main types:
+
+    1. Global Execution Context: Where your entire code starts executing 
+        (as discussed before).
+    2. Function Execution Context: Created every time a function is called.
+
+
+        Each context goes through two phases:
+
+        1. Memory Creation Phase: All variables are set to undefined and 
+            functions are stored as their full definitions.
+            
+        2. Execution Phase: JavaScript starts running the code line by line 
+            and updates variables with actual values.
+
+
+5. Event Loop & Callback Queue
+    When JavaScript handles asynchronous operations like setTimeout or making 
+    a request to an API, the Event Loop comes into play. The event loop 
+    constantly checks if the Call Stack is empty. If it’s empty, it picks 
+    up any pending asynchronous callbacks from the Callback Queue and sends 
+    them to the Call Stack to execute.
+
+        Example with asynchronous code:
+
+        javascript
+        Copy code
+        console.log("Start");
+
+        setTimeout(() => {
+            console.log("Async task");
+        }, 1000);
+
+        console.log("End");
+
+    - Call Stack runs console.log("Start") -> prints "Start".
+    - setTimeout is pushed to the Web APIs (handled outside the call stack, 
+        doesn’t block the code).
+    - console.log("End") is run immediately -> prints "End".
+    - After 1 second, the setTimeout callback goes into the Callback Queue.
+    - The Event Loop waits for the call stack to clear, then moves the callback 
+        to the Call Stack and executes -> prints "Async task".
+
+
+        //Output:
+
+
+        Start
+        End
+        Async task
+
+
+6. JavaScript Runtime (Browser or Node.js)
+    JavaScript runs in a runtime environment like a browser (Chrome, Firefox) 
+    or Node.js (for server-side JavaScript). Both provide:
+
+    - Call Stack: For synchronous code execution.
+    - Web APIs (in browsers) or Node APIs: For handling asynchronous code, such 
+        as timers (setTimeout), HTTP requests, etc.
+    - Callback Queue: Where asynchronous callbacks are stored until the call stack is empty.
+    - Event Loop: Responsible for moving callbacks from the queue to the call stack when ready.
+
+
+7. Promises and Async/Await
+    JavaScript also supports more modern ways to handle asynchronous tasks 
+    using Promises and async/await. These allow you to write asynchronous 
+    code that looks more like synchronous code but still behaves asynchronously.
+
+        Example with a Promise:
+
+        let promise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve("Task Complete");
+        }, 2000);
+        });
+
+        console.log("Before promise");
+
+        promise.then((message) => {
+        console.log(message);  // After 2 seconds, prints "Task Complete"
+        });
+
+        console.log("After promise");
+
+
+        // Output:
+
+        Before promise
+        After promise
+        Task Complete
+
+
+How it All Connects:
+
+- Call Stack handles synchronous code.
+- Web APIs (browser) or Node APIs (server) handle asynchronous tasks 
+    (timers, HTTP requests, etc.).
+- Callback Queue stores tasks to be executed when the Call Stack is empty.
+- Event Loop constantly checks if the Call Stack is empty and moves tasks 
+    from the Callback Queue to the Call Stack.
+
+_______________________________________________________________________________
+
+Summary
+
+Single-threaded: JavaScript executes one task at a time.
+Synchronous code: Happens line by line.
+Asynchronous code: Handled through the event loop, allowing JavaScript to execute multiple tasks without blocking.
+Execution Context: Manages how memory and execution work in JavaScript.
+Promises/async-await: New ways of handling asynchronous tasks that simplify code structure.
 
 
 
-
-Example code:
-
-1. let val1 = 10
-2. let val2 = 5
-3. function addNum(num1, num2){
-4.     let total = num1 + num2
-5.     return total
-6. }
-7. let result1 = addNum(val1, val2)
-8. let result2 = addNum(10, 2)
+_______________________________________________________________________________
+_______________________________________________________________________________
+_______________________________________________________________________________
+_______________________________________________________________________________
 
 
+*********** JavaScript Working: **********
 
 
+The JavaScript Execution Context is the environment where your code runs. 
+It's made up of multiple layers and phases, 
+primarily divided into three types:
+
+1. Global Execution Context: This is the default context where JavaScript 
+    starts executing when the script begins.
+2. Function/Functional Execution Context: Whenever a function is invoked, 
+    a new execution context is created for that specific function.
+3. Eval Execution Context: This is used when eval() is invoked to execute 
+    code as a string.
 
 
+Key Phases:
+
+1. Memory Creation Phase (Creation Phase): JavaScript scans the code and 
+    allocates memory for all variables and functions. Variables are set to 
+    undefined, while functions get their complete definition.
+
+2. Execution Phase: Once memory is allocated, JavaScript starts executing the 
+    code line by line, updating the values of variables and invoking functions.
 
 
+        Let's break it down using example:
+
+        Example Code:
+
+        1. let val1 = 10;
+        2. let val2 = 5;
+        3. function addNum(num1, num2) {
+        4.     let total = num1 + num2;
+        5.     return total;
+        6. }
+        7. let result1 = addNum(val1, val2);
+        8. let result2 = addNum(10, 2);
 
 
+************************** Execution Breakdown: **************************
+
+Step 1: Global Execution Context
+        When the script starts running, JavaScript creates a Global Execution Context. 
+
+        ## It has two phases:
+
+        Memory Creation Phase:
+
+        - val1: undefined
+        - val2: undefined
+        - addNum: function definition (the code inside the function is stored in memory)
+        - result1: undefined
+        - result2: undefined
+
+        Execution Phase:
+
+        - val1 gets assigned the value 10.
+        - val2 gets assigned the value 5.
+        - addNum stays as the function definition.
+        - result1 and result2 are waiting for the function addNum to be invoked.
+
+Step 2: Invoking addNum(val1, val2)
+        When addNum(val1, val2) is called, a new Function Execution Context is created 
+        for addNum. This context is temporary and created for each function call.
+
+        Memory Creation Phase (Inside addNum):
+
+        - num1: undefined
+        - num2: undefined
+        - total: undefined
 
 
+        Execution Phase (Inside addNum):
+
+        - num1 is assigned the value 10 (from val1).
+        - num2 is assigned the value 5 (from val2).
+        - total is computed as num1 + num2 which results in 15.
+
+        The function returns 15 to the global execution context, where result1 is now 15.
 
 
+Step 3: Invoking addNum(10, 2)
+        Again, a new Function Execution Context is created for addNum when 
+        it's called with addNum(10, 2).
 
+        Memory Creation Phase (Inside addNum):
 
+        - num1: undefined
+        - num2: undefined
+        - total: undefined
 
+        Execution Phase (Inside addNum):
 
+        - num1 is assigned 10.
+        - num2 is assigned 2.
+        - total is computed as 10 + 2, resulting in 12.
 
-
-
-
-
-
-
-
-
-
-
-
-
+        The function returns 12 to the global execution context, where result2 is now 12.
 
 
 
