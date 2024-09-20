@@ -57,7 +57,8 @@ How? JavaScript uses something called the Event Loop and Callback Queue.
         (it doesn't block).
     - console.log("End") runs immediately.
     - After 2 seconds, the callback (Inside setTimeout) is pushed to the Callback Queue.
-    - The Event Loop checks if the call stack is empty, and if it is, it moves the callback from the Callback Queue to the Call Stack, where it’s executed.
+    - The Event Loop checks if the call stack is empty, and if it is, it moves the 
+        callback from the Callback Queue to the Call Stack, where it’s executed.
 
         // So the output is:
 
@@ -79,11 +80,131 @@ ________________________________________________________________________________
 
         Each context goes through two phases:
 
-        1. Memory Creation Phase: All variables are set to undefined and 
-            functions are stored as their full definitions.
+        1. Memory Creation Phase: All variables are allocated memory and set 
+            to undefined and also functions are stored as their full definitions.
             
-        2. Execution Phase: JavaScript starts running the code line by line 
+        2. Code Execution Phase: JavaScript starts running the code line by line 
             and updates variables with actual values.
+
+________________________________________________________________________________________________________________
+            
+        example:
+
+            debugger
+
+
+            sayHi()
+
+            var username = 'Anurag'
+            var userAge = 25
+
+            function sayHi() {
+                const a = 14 
+                const b = 12
+                // console.log('Hi');
+                console.log(a, b);
+            }
+
+            console.log('Programe ended');
+
+
+
+
+                Global Execution Context:
+             ___________________________________________________________________________________________________
+            |                                                                                                   |
+            |   1)  Memory creation phase             2) Code Execution Phase                                   |
+            |   _______________________________     ________________________________________________________    |
+            |  |                               |   |                                                        |   |
+            |  |  username: undefined          |   |      Local (sayHi) Execution Context                   |   |
+            |  |  userAge: undefined           |   |   __________________________________________________   |   |
+            |  |  sayHi: function sayHi() {    |   |  |                                                  |  |   |
+            |  |            console.log('Hi'); |   |  |  Memory creation phase    code execution phase   |  |   |
+            |  |          }                    |   |  |   ___________________     ____________________   |  |   |
+            |  |                               |   |  |  |                   |   |                    |  |  |   |
+            |  |                               |   |  |  |  a: undefined     |   |  a: 14             |  |  |   |
+            |  |                               |   |  |  |  b: undefined     |   |  b: 12             |  |  |   |
+            |  |                               |   |  |  |                   |   |                    |  |  |   |
+            |  |                               |   |  |  |___________________|   |____________________|  |  |   |
+            |  |                               |   |  |                                                  |  |   |
+            |  |                               |   |  |         username: 'Anurag'                       |  |   |
+            |  |                               |   |  |         userAge: 25                              |  |   |
+            |  |                               |   |  |__________________________________________________|  |   |
+            |  |_______________________________|   |________________________________________________________|   |
+            |                                                                                                   |
+            |___________________________________________________________________________________________________|
+
+
+1) Global Execution context got created
+2) Then, memory creation phase is started
+3) The variables which are outside of function are set to 
+   undefined, while functions get their complete definition / whole code inside is stored.
+   that's why function is accessable by calling even before it is defined in the code.
+4) if we called the function before it is defined then in that case "local(sayHi) execution context"
+   will come before variables get their actual value in code execution phase (as in above drawing)
+5) when the function ends the "local(sayHi) execution context" will get deleted.
+
+=> If there is one more function and is called inside sayHi function
+   then that function will create new function execution context inside Local (sayHi) Execution Context as 
+   Local (function_name) Execution Context
+
+   ex: 
+
+            debugger
+
+
+            sayHi()
+
+            var username = 'Anurag'
+            var userAge = 25
+
+            function sayHi() {
+                const a = 14 
+                const b = 12
+                // console.log('Hi');
+                //console.log(a, b);
+                add(7, 9)
+            }
+
+            function add(a, b){
+                return a+b
+            }
+
+            console.log('Programe ended');
+
+
+        diagram:
+            
+                            Global Execution Context:
+             ___________________________________________________________________________________________________
+            |                                                                                                   |
+            |   1)  Memory creation phase             2) Code Execution Phase                                   |
+            |   _______________________________     ________________________________________________________    |
+            |  |                               |   |                                                        |   |
+            |  |  username: undefined          |   |      Local (sayHi) Execution Context                   |   |
+            |  |  userAge: undefined           |   |   __________________________________________________   |   |
+            |  |  sayHi: function sayHi() {    |   |  |                                                  |  |   |
+            |  |            console.log('Hi'); |   |  |  Memory creation phase    code execution phase   |  |   |
+            |  |          }                    |   |  |   ___________________     ____________________   |  |   |
+            |  |                               |   |  |  |                   |   |   a: 14            |  |  |   |
+            |  |                               |   |  |  |  a: undefined     |   |   b: 12            |  |  |   |
+            |  |                               |   |  |  |  b: undefined     |   |   ______________   |  |  |   |
+            |  |                               |   |  |  |                   |   |  |              |  |  |  |   |
+            |  |                               |   |  |  |                   |   |  |______________|  |  |  |   |
+            |  |                               |   |  |  |___________________|   |____________________|  |  |   |
+            |  |                               |   |  |                                                  |  |   |
+            |  |                               |   |  |         username: 'Anurag                        |  |   |
+            |  |                               |   |  |         userAge: 25                              |  |   |
+            |  |                               |   |  |__________________________________________________|  |   |
+            |  |_______________________________|   |________________________________________________________|   |
+            |                                                                                                   |
+            |___________________________________________________________________________________________________|            
+            
+
+
+
+________________________________________________________________________________________________________________
+
 
 
 5. Event Loop & Callback Queue
