@@ -68,6 +68,8 @@ How? JavaScript uses something called the Event Loop and Callback Queue.
 
 ________________________________________________________________________________
 
+
+
 4. Execution Context
     When JavaScript runs, it creates an Execution Context. 
     
@@ -135,14 +137,15 @@ ________________________________________________________________________________
             |___________________________________________________________________________________________________|
 
 
-1) Global Execution context got created
-2) Then, memory creation phase is started
-3) The variables which are outside of function are set to 
-   undefined, while functions get their complete definition / whole code inside is stored.
-   that's why function is accessable by calling even before it is defined in the code.
-4) if we called the function before it is defined then in that case "local(sayHi) execution context"
-   will come before variables get their actual value in code execution phase (as in above drawing)
-5) when the function ends the "local(sayHi) execution context" will get deleted.
+            1) Global Execution context got created
+            2) Then, memory creation phase is started
+            3) The variables which are outside of function are set to 
+            undefined, while functions get their complete definition / whole code inside is stored.
+            that's why function is accessable by calling even before it is defined in the code.
+            4) if we called the function before it is defined then in that case "local(sayHi) execution context"
+            will come before variables get their actual value in code execution phase (as in above drawing)
+            5) when the function ends the "local(sayHi) execution context" will get deleted.
+
 
 => If there is one more function and is called inside sayHi function
    then that function will create new function execution context inside Local (sayHi) Execution Context as 
@@ -171,6 +174,7 @@ ________________________________________________________________________________
             }
 
             console.log('Programe ended');
+
 
 
         diagram:
