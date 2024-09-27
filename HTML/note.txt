@@ -1,0 +1,17 @@
+<!DOCTYPE html> ----> Defines the HTML version / tells the browser that this is an HTML5 document.
+
+<html lang="en"> ---> Parent of all HTML tags / Root element / specifies that the language of the document is English.
+
+  <head> ----> Parent of meta data tags / contains meta information about the document.
+
+    <meta charset="UTF-8"> ----> specifies the character encoding for the document (UTF-8, which covers almost all characters and symbols).
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> ----> This meta tag ensures proper rendering on mobile devices / It sets the viewport width to the device width and initial zoom level.
+
+    <title>Document</title> ----> Title of web page / appears in the browser's title bar or page's tab.
+    
+  </head>
+  <body> ----> Parent of content tags
+    <h1> Hello World! </h1>
+  </body>
+</html>
