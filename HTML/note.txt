@@ -9,9 +9,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> ----> This meta tag ensures proper rendering on mobile devices / It sets the viewport width to the device width and initial zoom level.
 
     <title>Document</title> ----> Title of web page / appears in the browser's title bar or page's tab.
+
+    <style>
+      #first {color: red;} ---> Id selector (unique)
+      .second {color: green;} ---> class selector
+    </style>
+
+    <style src="style.css"></style> ---> linked external css file, link is in src
     
   </head>
   <body> ----> Parent of content tags
-    <h1> Hello World! </h1>
+    <h1 id=" " class=" "> Hello World! </h1>
+    // id ---> 
+    // class ---> 
   </body>
+
+  <script src="index.js"></script> ---> linked external js file, link is in src
+
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

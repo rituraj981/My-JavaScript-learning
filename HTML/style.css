@@ -1,0 +1,7 @@
+h1{
+  #first {color: red;}
+}
+
+p{
+  .second {color: green;}
+}
